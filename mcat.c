@@ -41,9 +41,4 @@ int main (int argc, char *argv[])
       munmap (map);
       close(fd);
     }
-
-
-
-  int i=0;    
-  return EXIT_SUCCESS;
 }
