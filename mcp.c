@@ -62,6 +62,5 @@ int main (int argc, char *argv[])
   /* Unmap files (optional). */
   munmap (in_map);
   munmap (out_map);
-
   return EXIT_SUCCESS;
 }
