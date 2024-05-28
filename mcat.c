@@ -40,7 +40,5 @@ int main (int argc, char *argv[])
       /* Unmap files (optional). */
       munmap (map);
       close(fd);
-    }
-  int aaa;
-  return EXIT_SUCCESS;
+    } return EXIT_SUCCESS;
 }
