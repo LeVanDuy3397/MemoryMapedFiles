@@ -5,6 +5,14 @@
 
 #include <stdio.h>
 #include <syscall.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <ctype.h>
+
 
 int main (int argc, char *argv[]) 
 {
