@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     size_t       length;
     ssize_t      s;
     struct stat  sb;
-   char *fakeArgs[] = {"CopyFileToFile", "FileIn.txt", "FileOut.txt", "Demo.txt", NULL};
+   char *fakeArgs[] = {"readfile", "FileIn.txt", "FileOut.txt", "Demo.txt", NULL};
    // Gán giá trị mới cho argc và argv
    argc = sizeof(fakeArgs) / sizeof(fakeArgs[0])-1;
    argv = fakeArgs;
