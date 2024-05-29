@@ -73,6 +73,11 @@ int main(int argc, char *argv[])
                MAP_PRIVATE, fd, pa_offset);
    if (map == MAP_FAILED)
        handle_error("mmap");
+
+   // Track mapping information
+   printf("Track mapping information:\n");
+   printf("Mapped address: %p\n", map);//la dia chi duoc anh xa tren bo nho RAM
+   printf("File size: %ld bytes\n", sb.st_size);
    printf("-------------\n");
 
 //    char *file_in_memory = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
