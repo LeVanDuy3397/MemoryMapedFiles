@@ -42,16 +42,16 @@ int main(int argc, char *argv[])
        handle_error("fstat");
    
    offset = 0x2900;// them dia chi bat dau de in ra file den cuoi cua file
-   printf("kich thuoc trang %d \n",sysconf(_SC_PAGE_SIZE));// co dinh kich thuoc cua mot trang 4096 bytes ~ 4KB=4MB
+   printf("page size %d \n",sysconf(_SC_PAGE_SIZE));// co dinh kich thuoc cua mot trang 4096 bytes ~ 4KB=4MB
    
    pa_offset = offset & ~(sysconf(_SC_PAGE_SIZE) - 1);
        /*them kha nang can chinh offset trong trang truoc, sao cho offset
         la vi tri bat dau cua file phai la boi so cua kich thuoc trang, de trang dich chuyen
         den vi tri cuoi cung co the in ra bytes cua file*/
        
-   printf("offset truoc khi can chinh %d\n", offset);
-   printf("offset sau khi can chinh %d \n", pa_offset);
-   printf("kich thuoc cua file in %ld\n", sb.st_size);    
+   printf("offset before aligned %d\n", offset);
+   printf("offset after aligned %d \n", pa_offset);
+   printf("file size of somtextToRead %ld\n", sb.st_size);    
 
    if (offset >= sb.st_size) { //them kha nang xac dinh offset co bi lon hon kich thuoc file khong
        fprintf(stderr, "offset is past end of file\n");
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
        //atoi(argv[1]);
        if (offset + length > sb.st_size)
            length = sb.st_size - offset;
-           printf("do dai length %d \n",length);
+           printf("length is %d \n",length);
                /* Can't display bytes past end of file *
    } else {    /* No length arg ==> display to end of file */
        length = sb.st_size - offset;
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
    }
 
    printf("\n -------------\n");
-   printf("Da in ra thanh cong \n");
+   printf("printed success \n");
    munmap(map, length + offset - pa_offset);
    close(fd);
    exit(EXIT_SUCCESS);
