@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
    } else {    /* No length arg ==> display to end of file */
        length = sb.st_size - offset;
    }
-
    map = mmap(NULL, length + offset - pa_offset, PROT_READ | PROT_WRITE,
                MAP_SHARED, fd, pa_offset);
    if (map == MAP_FAILED)
