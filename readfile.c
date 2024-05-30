@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
    ssize_t      s;
    struct stat  sb;
 
-   char *fakeArgs[] = {"readfile", "sometext.txt", "Demo1.txt", "Demo2.txt", NULL};
+   char *fakeArgs[] = {"readfile", "sometextToRead.txt", "Demo1.txt", "Demo2.txt", NULL};
    
    // Gán giá trị mới cho argc và argv
    argc = sizeof(fakeArgs) / sizeof(fakeArgs[0])-1;
@@ -105,3 +105,6 @@ int main(int argc, char *argv[])
    close(fd);
    exit(EXIT_SUCCESS);
 } 
+
+
+
