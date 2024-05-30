@@ -29,7 +29,8 @@ int main() {
     }
 
     // Ánh xạ file vào bộ nhớ
-    char *map_shared = mmap(0, FILE_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    char *map_shared = mmap(0, FILE_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);/*
+    khi lam viec se ghi nguoc lai file, tien trinh khac deu thay duoc su thay doi*/
     if (map_shared == MAP_FAILED) {
         close(fd);
         printf("111");
@@ -44,7 +45,9 @@ int main() {
     sprintf(map_shared, "Hello, World! (Shared)");
     fd = open(FILE_PATH, O_RDWR | O_CREAT, (mode_t)0600);
     // Ánh xạ file lại với cờ MAP_PRIVATE (copy-on-write)
-    char *map_private = mmap(0, FILE_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+    char *map_private = mmap(0, FILE_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);/*
+    chi lam viec rieng tren vung nho da anh xa, su thay doi se khong ghi lai file va khong
+    anh huong giua cac tien trinh khac*/
     if (map_private == MAP_FAILED) {
         printf("222");
         perror("mmap");
