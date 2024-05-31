@@ -57,8 +57,8 @@ int main (int argc, char *argv[])
       printf ("%s: mmap in_map failed\n", FileIn);
       return EXIT_FAILURE;
     }
-
-  //write(1, in_map, file_size);
+  printf("Print file_in before copy: \n");
+  write(1, in_map, file_size);
   printf("\n");
   
   void *out_map = mmap(out_data, file_size, PROT_READ | PROT_WRITE, MAP_SHARED, out_fd, 0);
@@ -67,11 +67,16 @@ int main (int argc, char *argv[])
       printf ("%s: mmap out_map failed\n", FileOut);
       return EXIT_FAILURE;
     }
+  printf("Print file_out before copy: \n");
   write(1, out_map, file_size);
   printf("\n");
 
   /* Copy files. */
   memcpy (out_map, in_map, file_size);
+
+  printf("Print file_out after copy: \n");
+  write(1, out_map, file_size);
+  printf("\n");
 
   /* Unmap files (optional). */
   munmap (in_map, file_size);

@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
    argc = sizeof(fakeArgs) / sizeof(fakeArgs[0])-1;
    argv = fakeArgs;
    // In ra tất cả các đối số dòng lệnh
-   for (i = 0; i < argc; i++) {
-       printf("argv[%d]: %s\n", i, argv[i]);
-   }
-      printf("%d \n", argc);
+//    for (i = 0; i < argc; i++) {
+//        printf("argv[%d]: %s\n", i, argv[i]);
+//    }
+  //    printf("%d \n", argc);
    if (argc < 3 || argc > 4) {
        printf("%s file offset \n", argv[0]);
        exit(EXIT_FAILURE);
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
    if (fstat(fd, &sb) == -1)          
        handle_error("fstat");
    
-   offset = 0x2900;// them dia chi bat dau de in ra file den cuoi cua file
+   offset = 0x2F00;// them dia chi bat dau de in ra file den cuoi cua file
    printf("page size %ld \n",sysconf(_SC_PAGE_SIZE));// co dinh kich thuoc cua mot trang 4096 bytes ~ 4KB=4MB
    
    pa_offset = offset & ~(sysconf(_SC_PAGE_SIZE) - 1);
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 
    close(fd); // them dong file thi mapping van ton tai, tru khi memory unmapping thi moi ngat mapping
    
-   char * text="iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
+   char * text="xin chao moi nguoi toi la Duy";
    sprintf(map + offset - pa_offset, text); // chen text vao mapping khi da close file
 
    if (msync(map, offset - pa_offset + sizeof(text), MS_SYNC) == -1) // dong bo tren disk
