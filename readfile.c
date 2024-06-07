@@ -24,17 +24,6 @@ int main(int argc, char *argv[])
    char *fakeArgs[] = {"readfile", "sometextToRead.txt", "Demo1.txt", "Demo2.txt", NULL};
    
    // Gán giá trị mới cho argc và argv
-   argc = sizeof(fakeArgs) / sizeof(fakeArgs[0])-1;
-   argv = fakeArgs;
-   // In ra tất cả các đối số dòng lệnh
-   for (i = 0; i < argc; i++) {
-       printf("argv[%d]: %s\n", i, argv[i]);
-   }
-      printf("%d \n", argc);
-   if (argc < 3 || argc > 4) {
-       printf("%s file offset \n", argv[0]);
-       exit(EXIT_FAILURE);
-   }
    fd = open(argv[1], O_RDWR);
    if (fd == -1)
        handle_error("open");
@@ -58,16 +47,16 @@ int main(int argc, char *argv[])
        exit(EXIT_FAILURE);
    }
 
-   if (argc == 4) {
-       length = 100000;
-       //atoi(argv[1]);
-       if (offset + length > sb.st_size)
+//    if (argc == 4) {
+//        length = 100000;
+//        //atoi(argv[1]);
+//        if (offset + length > sb.st_size)
            length = sb.st_size - offset;
            printf("length is %ld \n",length);
                /* Can't display bytes past end of file *
-   } else {    /* No length arg ==> display to end of file */
-       length = sb.st_size - offset;
-   }
+//    } else {    /* No length arg ==> display to end of file */
+//        length = sb.st_size - offset;
+//    }
 
    map = mmap(NULL, length + offset - pa_offset, PROT_READ | PROT_WRITE,
                MAP_SHARED, fd, pa_offset);
@@ -80,17 +69,17 @@ int main(int argc, char *argv[])
    printf("File size: %ld bytes\n", sb.st_size);
    printf("-------------\n");
 
-//    char *file_in_memory = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+   char *file_in_memory = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
    
-//    printf("Printting...\n");
+   printf("Printting...\n");
    
-//    for(int i=0; i < sb.st_size; i++ ){
-//      //file_in_memory[i]=toupper(file_in_memory[i]);
-//      file_in_memory[i]=file_in_memory[i]+1;
-//      printf("%c",file_in_memory[i]);
-//    }
+   for(int i=0; i < sb.st_size; i++ ){
+     file_in_memory[i]=toupper(file_in_memory[i]);
+     //file_in_memory[i]=file_in_memory[i]+1;
+     printf("%c",file_in_memory[i]);
+   }
 
-   s = write(STDOUT_FILENO, map + offset - pa_offset, length);
+   //s = write(STDOUT_FILENO, map + offset - pa_offset, length);
 
    if (s != length) {
        if (s == -1)
@@ -119,7 +108,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     
-   s = write(STDOUT_FILENO, map + offset - pa_offset, length);// mo lai file de thay anh xa van hoat dong binh thuong
+   //s = write(STDOUT_FILENO, map + offset - pa_offset, length);// mo lai file de thay anh xa van hoat dong binh thuong
    printf("\n -------------\n");
 
    munmap(map, length + offset - pa_offset);
